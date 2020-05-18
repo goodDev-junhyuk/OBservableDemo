@@ -9,13 +9,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var timerData: TimerData
+    
     var body: some View {
-        Text("Hello, World!")
+        
+        NavigationView {
+            
+            VStack {
+                Text("Timer count = \(timerData.timeCount)")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding()
+                Button(action: resetCount) {
+                    
+                    Text("Reset Counter")
+                }
+                
+                NavigationLink(destination: SecondView()) {
+                    Text("다음 화면")
+                }
+                .padding()
+            }
+        }
+    }
+    
+    func resetCount() {
+        
+        timerData.resetCount()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(TimerData())
     }
 }
